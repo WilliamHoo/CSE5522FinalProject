@@ -1,9 +1,9 @@
 import csv
 import numpy as np
-import sklearn.linear_model as model
+import sklearn.tree as model
 
 i = 0
-
+j = 0
 train_data = []
 train_labels = []
 test_data = []
@@ -16,10 +16,16 @@ for line in open("./../../dataset/train.csv"):
 	each_data_point = line.split(',')
 	each_data_point.pop(0)
 	if i % 4 == 0:
-		test_labels.append(each_data_point.pop(0))
+		label = each_data_point.pop(0)
+		if label == "1":
+			j += 1
+		test_labels.append(label)
 		test_data.append(each_data_point)
 	else:
-		train_labels.append(each_data_point.pop(0))
+		label = each_data_point.pop(0)
+		if label == "1":
+			j += 1
+		train_labels.append(label)
 		train_data.append(each_data_point)
 	i = i + 1
 
@@ -28,9 +34,17 @@ train_labels = np.array(train_labels).astype(int)
 test_data = np.array(test_data).astype(np.float)
 test_labels = np.array(test_labels).astype(int)
 
+
 print(train_data.shape, test_data.shape)
 
-classifier = model.LogisticRegression()
+classifier = model.DecisionTreeClassifier(max_depth=100)
 classifier.fit(train_data, train_labels)
 score = classifier.score(test_data, test_labels)
 print(score)
+k = 0
+for each_data in test_data:
+	label = classifier.predict(each_data.reshape(1, -1))
+	if label[0] == 1:
+		k += 1
+print(j)
+print(k)
