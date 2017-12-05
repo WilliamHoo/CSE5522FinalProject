@@ -52,6 +52,9 @@ total_hit_0 = 0
 # 		k += 1
 # for i in range(0, len(test_data)):
 # 	label = classifier.predict(test_data.reshape)
+
+## Test over test dataset
+
 predict_labels = classifier.predict(test_data)
 for i in range(len(predict_labels)):
 	if predict_labels[i] == test_labels[i]:
@@ -64,6 +67,22 @@ for i in range(len(predict_labels)):
 			total_miss_1 += 1
 		else:
 			total_miss_0 += 1
+
+## Test over training data
+
+# predict_labels = classifier.predict(test_data)
+# for i in range(len(predict_labels)):
+# 	if predict_labels[i] == test_labels[i]:
+# 		if predict_labels[i] == 1:
+# 			total_hit_1 += 1
+# 		else:
+# 			total_hit_0 += 1
+# 	else:
+# 		if predict_labels[i] == 1:
+# 			total_miss_1 += 1
+# 		else:
+# 			total_miss_0 += 1
+
 # print(j)
 # print(k)
 print("total_hit_1: " + str(total_hit_1) + " total_hit_0 " + str(total_hit_0) 
