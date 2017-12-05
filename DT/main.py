@@ -37,14 +37,34 @@ test_labels = np.array(test_labels).astype(int)
 
 print(train_data.shape, test_data.shape)
 
-classifier = model.DecisionTreeClassifier(max_depth=100)
+classifier = model.DecisionTreeClassifier()#(max_depth=300)
 classifier.fit(train_data, train_labels)
 score = classifier.score(test_data, test_labels)
-print(score)
+print("The accuracy of the model among testing data is " + str(score) + "\n")
 k = 0
-for each_data in test_data:
-	label = classifier.predict(each_data.reshape(1, -1))
-	if label[0] == 1:
-		k += 1
-print(j)
-print(k)
+total_miss_1 = 0
+total_hit_1 = 0
+total_miss_0 = 0
+total_hit_0 = 0
+# for each_data in test_data:
+# 	label = classifier.predict(each_data.reshape(1, -1))
+# 	if label[0] == 1:
+# 		k += 1
+# for i in range(0, len(test_data)):
+# 	label = classifier.predict(test_data.reshape)
+predict_labels = classifier.predict(test_data)
+for i in range(len(predict_labels)):
+	if predict_labels[i] == test_labels[i]:
+		if predict_labels[i] == 1:
+			total_hit_1 += 1
+		else:
+			total_hit_0 += 1
+	else:
+		if predict_labels[i] == 1:
+			total_miss_1 += 1
+		else:
+			total_miss_0 += 1
+# print(j)
+# print(k)
+print("total_hit_1: " + str(total_hit_1) + " total_hit_0 " + str(total_hit_0) 
+	+ " total_miss_1 " + str(total_miss_1) + " total_miss_0: " + str(total_miss_0) + "\n")
